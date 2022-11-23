@@ -1,0 +1,25 @@
+---
+- hosts: localhost
+  become: true
+  vars_files:
+   - variable.yml
+  tasks:
+   - name: install httpd server 
+     yum:
+      name: httpd
+      state: latest
+   - name: copy index.html
+     template:
+      src: index.html
+      dest: /var/www/html/index.html 
+     notify:
+      - restsrt the httpd server 
+  handlers:
+   - name: retsrt the httpd server
+     service:
+      name: httpd
+      state: restarted
+      enabled: true
+
+
+     

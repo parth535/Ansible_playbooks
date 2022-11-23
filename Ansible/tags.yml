@@ -1,0 +1,20 @@
+---
+- hosts: localhost
+  become: yes
+  tasks:
+  - name: Install Apache HTTP server on RedHat Server
+    tags:
+      - install
+    yum: 
+      name: httpd
+      state: present
+    when: ansible_os_family == "RedHat"
+  - name: Install Apache HTTP server on Ubuntu server
+    tags:
+      - install
+      - start
+    apt:
+      name: apache2
+      state: present
+    when: ansible_os_family == "Debian"
+...
